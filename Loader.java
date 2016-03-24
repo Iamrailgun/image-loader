@@ -42,7 +42,6 @@ public class Loader {
             System.out.println("IOException");
         }
         for (int i = 0; i < linkedList.size(); i++) {
-            System.out.println(linkedList.get(i));
             try {
                 URL img = new URL(linkedList.get(i));
                 image = ImageIO.read(img);
