@@ -23,30 +23,31 @@ public class Loader {
             System.out.println("MalformedURLException");
         }
 
-        System.out.println("form html");
         try {
             if (url != null) {
                 in = new BufferedReader(new InputStreamReader(url.openStream()));
             }
             if (in != null) {
                 while ((inputLine = in.readLine()) != null) {
-                    if (inputLine.contains(".jpg")) {
-                        linkedList.add(inputLine.substring(6, inputLine.length() - 1));
-                        System.out.println(inputLine);
+                    Pattern pattern = Pattern.compile("data-src_big=\"(.*?)\\|");
+                    Matcher matcher = pattern.matcher(inputLine);
+                    for (int i = 0; i < inputLine.length(); i++) {
+                        if (matcher.find()){
+                            linkedList.add(matcher.group(1));
+                        }
                     }
                 }
             }
         } catch (IOException e) {
             System.out.println("IOException");
         }
-        System.out.println("from list");
         for (int i = 0; i < linkedList.size(); i++) {
             System.out.println(linkedList.get(i));
             try {
                 URL img = new URL(linkedList.get(i));
                 image = ImageIO.read(img);
-                File ofile = new File("img " + (i - 1));
-                ImageIO.write(image, "jpg", ofile);
+                File outFile = new File("img" + i + ".jpg");
+                ImageIO.write(image, "jpg", outFile);
             } catch (IOException e) {
                 System.out.println("iex");
             }
