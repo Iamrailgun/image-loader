@@ -1,2 +1,2 @@
 # image-loader
-Alpha version of loader. Working onli on one site :(
+Alpha version of loader. Working with some sites.
